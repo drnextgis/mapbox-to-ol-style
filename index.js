@@ -4,10 +4,6 @@ Copyright 2016-present Boundless Spatial, Inc.
 License: https://raw.githubusercontent.com/boundlessgeo/mapbox-to-ol-style/master/LICENSE.md
 */
 
-import Style from 'ol/style/style';
-import Fill from 'ol/style/fill';
-import Stroke from 'ol/style/stroke';
-import Circle from 'ol/style/circle';
 import glfun from '@mapbox/mapbox-gl-style-spec/function';
 import createFilter from '@mapbox/mapbox-gl-style-spec/feature_filter';
 import mb2css from 'mapbox-to-css-font';
@@ -264,6 +260,7 @@ function sortByWidth(a, b) {
  * the specified `source`, which needs to be a `"type": "vector"` or
  * `"type": "geojson"` source and applies it to the specified OpenLayers layer.
  *
+ * @param {ol} OpenLayers.
  * @param {ol.layer.Vector|ol.layer.VectorTile} olLayer OpenLayers layer.
  * @param {string|Object} glStyle Mapbox Style object.
  * @param {string|Array<string>} source `source` key or an array of layer `id`s
@@ -290,7 +287,12 @@ function sortByWidth(a, b) {
  * @return {ol.style.StyleFunction} Style function for use in
  * `ol.layer.Vector` or `ol.layer.VectorTile`.
  */
-export default function(olLayer, glStyle, source, resolutions, spriteData, spriteImageUrl, fonts) {
+export default function(ol, olLayer, glStyle, source, resolutions, spriteData, spriteImageUrl, fonts) {
+  var Style = ol.style.Style;
+  var Fill = ol.style.Fill;
+  var Stroke = ol.style.Stroke;
+  var Circle = ol.style.Circle;
+
   if (!resolutions) {
     resolutions = [];
     for (var res = 156543.03392804097; resolutions.length < 22; res /= 2) {

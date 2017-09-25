@@ -16,7 +16,7 @@ var client = new XMLHttpRequest();
 client.open('GET', 'data/states.json');
 client.onload = function() {
   var glStyle = JSON.parse(client.responseText);
-  mb2olstyle(layer, glStyle, 'states');
+  mb2olstyle(ol, layer, glStyle, 'states');
   map.addLayer(layer);
 };
 client.send();
